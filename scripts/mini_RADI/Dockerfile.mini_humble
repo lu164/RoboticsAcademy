@@ -30,7 +30,7 @@ RUN chmod +x /start_vnc.sh /kill_all.sh /entrypoint.sh /start_vnc_gpu.sh
 
 # RoboticsAcademy
 ARG ROBOTICS_ACADEMY=$ROBOTICS_ACADEMY
-RUN git clone --depth 1 https://github.com/JdeRobot/RoboticsAcademy.git -b $ROBOTICS_ACADEMY /RoboticsAcademy/
+RUN git clone --depth 1 https://github.com/lu164/RoboticsAcademy.git -b $ROBOTICS_ACADEMY /RoboticsAcademy/
 
 # Relocate RAM
 RUN mkdir /RoboticsAcademy/src && mv /RoboticsApplicationManager/* /RoboticsAcademy/src
