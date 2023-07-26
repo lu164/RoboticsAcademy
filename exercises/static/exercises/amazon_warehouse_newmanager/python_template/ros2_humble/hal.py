@@ -12,6 +12,8 @@ from interfaces.camera import ListenerCamera
 from interfaces.platform_controller import PlatformCommandListener
 from interfaces.platform_publisher import PublisherPlatform
 
+from shared.pose3d import SharedPose3D
+
 # Hardware Abstraction Layer
 class HAL:
     IMG_WIDTH = 320
@@ -27,6 +29,8 @@ class HAL:
         self.camera = ListenerCamera("/amazon_robot/camera_front/image_raw")
         self.platform_listener = PlatformCommandListener()
         self.platform_pub = PublisherPlatform("/send_effort")
+
+        self.shared_pose = SharedPose3D("pose")
 
         # Spin nodes so that subscription callbacks load topic data
         # Bumper has to be spinned differently so that GetEntityState works
@@ -47,6 +51,9 @@ class HAL:
         return new_instance
 
     def getPose3d(self):
+        print("GETTING POSE\n\n")
+        pose = self.pose3d.getPose3d()
+        self.shared_pose.add(pose)
         return self.pose3d.getPose3d()
 
     def getLaserData(self):

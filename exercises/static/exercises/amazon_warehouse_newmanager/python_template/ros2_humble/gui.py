@@ -13,15 +13,11 @@ from websocket_server import WebsocketServer
 import multiprocessing
 import logging
 
-from interfaces.pose3d import ListenerPose3d
 from shared.image import SharedImage
 from shared.value import SharedValue
+from shared.pose3d import SharedPose3D
 
 from map import Map
-
-
-IMG_WIDTH = 320
-IMG_HEIGHT = 240
 
 # Graphical User Interface Class
 class GUI:
@@ -30,16 +26,12 @@ class GUI:
     def __init__(self, host):
         rclpy.init()
         rclpy.create_node('GUI')
-        self.payload = {'map': '', 'nav': '','image': ''}
+        self.payload = {'map': '', 'image': ''}
 
         # GUI websocket
         self.server = None
         self.client = None
         self.host = host
-
-        # Create the map object
-        pose3d_object = ListenerPose3d("/amazon_robot/odom")
-        self.map = Map(pose3d_object)
 
         # Event objects for multiprocessing
         self.ack_event = multiprocessing.Event()
@@ -55,6 +47,12 @@ class GUI:
 
         # Image variable shared with GUIFunctions
         self.shared_image = SharedImage("guiimage")
+
+        # Create the map object    
+        self.shared_pose = SharedPose3D("pose")
+        self.pose3d = self.shared_pose.get()
+        self.map = Map(self.pose3d)
+
         # self.shared_numpy = SharedImage("guiNumpy")
 
 #------------------------------------------------------------#
@@ -89,28 +87,16 @@ class GUI:
     #     self.show_mat = True
 
 #------------------------------------------------------------#
-
     # Update the gui
     def update_gui(self):
         # Payload Map Message
-        pos_message = self.map.getRobotCoordinates()
-        ang_message = self.map.getRobotAngle()
+        pose = self.shared_pose.get()
+        print("\n\nRobot Data ---------------------------------------------*")
+        print(" - Pose3d: " + str(pose))
+        pos_message = self.map.getRobotCoordinates(pose)
+        ang_message = self.map.getRobotAngle(pose)
         pos_message = str(pos_message + ang_message)
         self.payload["map"] = pos_message
-
-        # Example Payload Navigation Data message (random data)
-        # 4 colors supported (0, 1, 2, 3)
-        #nav_mat = np.zeros((20, 20), int)
-        #nav_mat[2, 1] = 1
-        #nav_mat[3, 3] = 2
-        #nav_mat[5,9] = 3
-        #nav_message = str(nav_mat.tolist())
-        # self.loadNumpy()
-        # if (self.show_mat == True):
-        #     nav_message = str(self.user_mat.tolist())
-        #     self.payload["nav"] = nav_message
-        # else:
-        #     self.payload["nav"] = None
 
         # Payload Image Message
         payload = self.payloadImage()

@@ -7,22 +7,32 @@ function SpecificAmazonWarehouse(props) {
 
   React.useEffect(() => {
     console.log("TestShowScreen subscribing to ['update'] events");
-
-    const callback = (message) => {
-      const data = message.data.update;
+    
+    const getMapDataAndDraw = (data) => {
+      print("[Draw map] Data map: " + str(data.map))
       if (data.map) {
         const pose = data.map.substring(1, data.map.length - 1);
-        const content = pose.split(",").map(function (item) {
+        const content = pose.split(',').map(function(item) {
           return parseFloat(item);
-        });
-        draw(
-          guiCanvasRef.current,
-          content[0],
-          content[1],
-          content[2],
-          content[3]
-        );
+        })
+        print("pose: " + str(pose))
+        print("content: " + str(content))
+        draw((content[0] ), (content[1] ), content[2], content[3]);
       }
+    }
+    const getPathAndDisplay = (data) => {
+      print("[Draw path] Data array: " + str(data.array))
+      if(data.array){
+        generatePath(JSON.parse(data.array))
+      }
+    }
+
+    const callback = (message) => {
+      print("\n\n\n\nBIRD EYE -------------------------------")
+      const data = message.data.update;
+      print("[callback] Data: " + str(data))
+      getMapDataAndDraw(data)
+      getPathAndDisplay(data)
     };
 
     window.RoboticsExerciseComponents.commsManager.subscribe(
