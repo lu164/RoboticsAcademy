@@ -29,13 +29,13 @@ class Map:
 	def getRobotCoordinates(self, pose):
 		x = pose.x
 		y = pose.y
-		
-		scale_y = 15; offset_y = 63
-		y = scale_y * y + offset_y
-		
-		scale_x = -30; offset_x = 171
+
+		scale_x = -20; offset_x = 145
 		x = scale_x * x + offset_x
 
+		scale_y = 34; offset_y = 78
+		y = scale_y * y + offset_y
+		
 		print(" - Coordinate: " + str(x) + ", " + str(y))
 		print(" -> pose: " + str(pose))
 		
@@ -48,7 +48,7 @@ class Map:
 		tx = math.sin(-rt) + math.cos(-rt)
 
 		print(" - Angle: " + str(tx) + ", " + str(ty))
-		print(" -> pose: " + str(pose))
+		print(" -> rt: " + str(rt))
 
 		return tx, ty
 
