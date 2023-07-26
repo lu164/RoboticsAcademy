@@ -44,7 +44,7 @@ function SpecificAmazonWarehouse(props) {
       ref={guiCanvasRef}
       style={{
         backgroundImage:
-          "url('/static/exercises/amazon_warehouse/resources/images/map.png')",
+          "url('/static/exercises/amazon_warehouse_newmanager/resources/images/map.png')",
         border: "2px solid #d3d3d3",
         backgroundRepeat: "no-repeat",
         backgroundSize: "100% 100%",
