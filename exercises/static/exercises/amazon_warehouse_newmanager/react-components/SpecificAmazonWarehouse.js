@@ -7,26 +7,26 @@ function SpecificAmazonWarehouse(props) {
 
   React.useEffect(() => {
     console.log("TestShowScreen subscribing to ['update'] events");
-    
-    const getMapDataAndDraw = (data) => {
+
+    const drawRobot = (data) => {
       if (data.map) {
         const pose = data.map.substring(1, data.map.length - 1);
-        const content = pose.split(',').map(function(item) {
+        const content = pose.split(",").map(function (item) {
           return parseFloat(item);
-        })
-        draw((content[0] ), (content[1] ), content[2], content[3]);
+        });
+        draw(
+          guiCanvasRef.current,
+          content[0],
+          content[1],
+          content[2],
+          content[3]
+        );
       }
-    }
-    const getPathAndDisplay = (data) => {
-      if(data.array){
-        generatePath(JSON.parse(data.array))
-      }
-    }
+    };
 
     const callback = (message) => {
       const data = message.data.update;
-      getMapDataAndDraw(data)
-      getPathAndDisplay(data)
+      drawRobot(data)
     };
 
     window.RoboticsExerciseComponents.commsManager.subscribe(
