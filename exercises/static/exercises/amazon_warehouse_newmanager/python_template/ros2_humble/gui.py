@@ -38,7 +38,7 @@ class GUI:
         self.host = host
 
         # Create the map object
-        pose3d_object = ListenerPose3d("/odom")
+        pose3d_object = ListenerPose3d("/amazon_robot/odom")
         self.map = Map(pose3d_object)
 
         # Event objects for multiprocessing
