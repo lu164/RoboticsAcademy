@@ -38,17 +38,17 @@ export function generatePath(data){
 	let scale = Math.min(mapCanvas.width,mapCanvas.height);
 
 	for (let i = 0; i < data.length-1; i++) {
-	   ctx.beginPath();
-	   ctx.moveTo(data[i][0], data[i][1]);
-	   ctx.strokeStyle = "#008000";
-	   ctx.strokeWidth = 100;
-		  let x = data[i+1][0];
-		  let y = data[i+1][1];
-		  //x = ((x-minx) / range) * scale;
-		  //y = ((y-miny) / range) * scale;
-		  ctx.lineTo(x,y);
-		  ctx.stroke();
-	   }
+    ctx.beginPath();
+    ctx.moveTo(data[i][0], data[i][1]);
+    ctx.strokeStyle = "#008000";
+    ctx.strokeWidth = 100;
+    let x = data[i+1][0];
+    let y = data[i+1][1];
+    //x = ((x-minx) / range) * scale;
+    //y = ((y-miny) / range) * scale;
+    ctx.lineTo(x,y);
+    ctx.stroke();
+  }
 }
 
 
