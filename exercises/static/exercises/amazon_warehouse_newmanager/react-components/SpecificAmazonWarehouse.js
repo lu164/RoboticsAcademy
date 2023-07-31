@@ -1,6 +1,5 @@
 import * as React from "react";
 import PropTypes from "prop-types";
-import { draw } from "Helpers/BirdEye";
 import { clearPath, draw, drawTargetPosition, generatePath } from "./helpers/bird_eye_amazon_warehouse";
 
 function SpecificAmazonWarehouse(props) {

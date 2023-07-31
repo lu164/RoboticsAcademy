@@ -147,24 +147,24 @@ export function restoreInitialPosition() {
 
 export function clearPath() {
 	let mapCanvas = document.getElementById("globalnav-eye");
-  	let ctx = mapCanvas.getContext("2d");
+  let ctx = mapCanvas.getContext("2d");
  	ctx.clearRect(0,0,mapCanvas.width,mapCanvas.height);
 }
 
 export function drawTargetPosition(cursorXMap, cursorYMap) {
 	clearPath()
 	let mapCanvas = document.getElementById("globalnav-eye");
-  	let ctx = mapCanvas.getContext("2d");
- if (cursorXMap != 0 || cursorYMap != 0) {
-	ctx.beginPath();
-	ctx.strokeStyle = "#0000FF";
- 
-	ctx.moveTo((cursorXMap - 8), (cursorYMap - 8));
-	ctx.lineTo((cursorXMap + 8), (cursorYMap + 8));
- 
-	ctx.moveTo((cursorXMap + 8), (cursorYMap - 8));
-	ctx.lineTo((cursorXMap - 8), (cursorYMap + 8));
-	ctx.stroke();
-	ctx.closePath();
- }
+  let ctx = mapCanvas.getContext("2d");
+  if (cursorXMap != 0 || cursorYMap != 0) {
+    ctx.beginPath();
+    ctx.strokeStyle = "#0000FF";
+  
+    ctx.moveTo((cursorXMap - 8), (cursorYMap - 8));
+    ctx.lineTo((cursorXMap + 8), (cursorYMap + 8));
+  
+    ctx.moveTo((cursorXMap + 8), (cursorYMap - 8));
+    ctx.lineTo((cursorXMap - 8), (cursorYMap + 8));
+    ctx.stroke();
+    ctx.closePath();
+  }
 }
