@@ -30,10 +30,10 @@ class Map:
 		x = pose.y
 		y = pose.x
 
-		scale_x = -20.8; offset_x = 208
+		scale_x = -20.8; offset_x = 145
 		x = scale_x * x + offset_x
 
-		scale_y = -19.64; offset_y = 137
+		scale_y = -19.64; offset_y = 78
 		y = scale_y * y + offset_y
 		
 		print(" - Coordinate: " + str(x) + ", " + str(y))
