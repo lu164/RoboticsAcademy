@@ -136,8 +136,7 @@ class Template:
             importlib.machinery.ModuleSpec("GUI", None))
 
         # Add GUI functions
-        gui_module.GUI.showImage = self.gui.showImage
-        # gui_module.GUI.showNumpy = self.gui.showNumpy
+        gui_module.GUI.showPath = self.gui.showPath
 
         # Adding modules to system
         # Protip: The names should be different from

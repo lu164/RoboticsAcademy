@@ -10,14 +10,5 @@ class GUIFunctions:
         # Initialize image variable
         self.shared_image = SharedImage("guiimage")
 
-    # Show image function
-    def showImage(self, image):
-        # Reshape to 3 channel if it has only 1 in order to display it
-        if (len(image.shape) < 3):
-            image = cv2.cvtColor(image, cv2.COLOR_GRAY2RGB)
-        self.shared_image.add(image)
-
-    # Show Numpy function
-    # def showNumpy(self, mat,h,w):
-    #     self.shared_numpy = SharedNumpy("guiNumpy",h,w)
-    #     self.shared_numpy.add(mat)
+    def showPath(self, image):
+        print("Show Path Function")

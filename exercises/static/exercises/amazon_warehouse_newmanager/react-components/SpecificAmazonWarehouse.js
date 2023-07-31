@@ -1,6 +1,7 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import { draw } from "Helpers/BirdEye";
+import { clearPath, draw, drawTargetPosition, generatePath } from "./helpers/bird_eye_amazon_warehouse";
 
 function SpecificAmazonWarehouse(props) {
   const guiCanvasRef = React.useRef();
@@ -8,7 +9,7 @@ function SpecificAmazonWarehouse(props) {
   React.useEffect(() => {
     console.log("TestShowScreen subscribing to ['update'] events");
 
-    const drawRobot = (data) => {
+    const displayRobot = (data) => {
       if (data.map) {
         const pose = data.map.substring(1, data.map.length - 1);
         const content = pose.split(",").map(function (item) {
@@ -24,9 +25,16 @@ function SpecificAmazonWarehouse(props) {
       }
     };
 
+    const displayPath = (data) => {
+      if(data.array){
+        generatePath(JSON.parse(data.array))
+      }
+    };
+
     const callback = (message) => {
       const data = message.data.update;
-      drawRobot(data)
+      displayRobot(data)
+      displayPath(data)
     };
 
     window.RoboticsExerciseComponents.commsManager.subscribe(

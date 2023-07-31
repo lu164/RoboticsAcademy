@@ -1,19 +1,14 @@
 import json
 import os
-
+import re
 import rclpy
-import cv2
 import sys
-import numpy as np
-import base64
 import threading
 import time
 from datetime import datetime
 from websocket_server import WebsocketServer
 import multiprocessing
-import logging
 
-from shared.image import SharedImage
 from shared.value import SharedValue
 from shared.pose3d import SharedPose3D
 
@@ -26,7 +21,8 @@ class GUI:
     def __init__(self, host):
         rclpy.init()
         rclpy.create_node('GUI')
-        self.payload = {'map': '', 'image': ''}
+        
+        self.payload = {'map': ''}
 
         # GUI websocket
         self.server = None
@@ -40,51 +36,31 @@ class GUI:
         # Start server thread
         t = threading.Thread(target=self.run_server)
         t.start()
-        
-        # Numpy matrix
-        self.user_mat = None
-        self.show_mat = False
-
-        # Image variable shared with GUIFunctions
-        self.shared_image = SharedImage("guiimage")
 
         # Create the map object    
         self.shared_pose = SharedPose3D("pose")
         self.pose3d = self.shared_pose.get()
         self.map = Map(self.pose3d)
 
-        # self.shared_numpy = SharedImage("guiNumpy")
+        self.array = None
 
-#------------------------------------------------------------#
+#------------------------------------------------------------#    
+    # Process the array(ideal path) to be sent to websocket
+    def showPath(self, array):
+        self.array_lock.acquire()
 
-    # Function to prepare image payload
-    # Encodes the image as a JSON string and sends through the WS
-    def payloadImage(self):
-        image = self.shared_image.get()
-        payload = {'image': '', 'shape': ''}
-    	
-        shape = image.shape
-        frame = cv2.imencode('.JPEG', image)[1]
-        encoded_image = base64.b64encode(frame)
-        
-        payload['image'] = encoded_image.decode('utf-8')
-        payload['shape'] = shape
+        strArray = ''.join(str(e) for e in array)
 
-        return payload
-    
-    # Function for student to call
-    def showImage(self, image):
-        self.image_show_lock.acquire()
-        self.image_to_be_shown = image
-        self.image_to_be_shown_updated = True
-        self.image_show_lock.release()
+        # Remove unnecesary spaces in the array to avoid JSON syntax error in javascript
+        strArray = re.sub(r"\[[ ]+", "[", strArray)
+        strArray = re.sub(r"[ ]+", ", ", strArray)
+        strArray = re.sub(r",[ ]+]", "]", strArray)
+        strArray = re.sub(r",,", ",", strArray)
+        strArray = re.sub(r"]\[", "],[", strArray)
+        strArray = "[" + strArray + "]"
 
-    # def loadNumpy(self):
-    #     self.user_mat = self.shared_numpy.get()
-    #     
-    # def showNumpy(self,mat,h,w):
-    #     self.user_mat = mat
-    #     self.show_mat = True
+        self.array = strArray
+        self.array_lock.release()
 
 #------------------------------------------------------------#
     # Update the gui
@@ -97,10 +73,6 @@ class GUI:
         ang_message = self.map.getRobotAngle(pose)
         pos_message = str(pos_message + ang_message)
         self.payload["map"] = pos_message
-
-        # Payload Image Message
-        payload = self.payloadImage()
-        self.payload["image"] = json.dumps(payload)
 
         message = "#gui" + json.dumps(self.payload)
         self.server.send_message(self.client, message)

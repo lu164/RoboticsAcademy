@@ -16,8 +16,6 @@ from shared.pose3d import SharedPose3D
 
 # Hardware Abstraction Layer
 class HAL:
-    IMG_WIDTH = 320
-    IMG_HEIGHT = 240
     
     def __init__(self):
         rclpy.init(args=sys.argv)
@@ -26,7 +24,6 @@ class HAL:
         self.motors = PublisherMotors("/amazon_robot/cmd_vel", 4, 0.3)
         self.pose3d = ListenerPose3d("/amazon_robot/odom")
         self.laser = ListenerLaser("/amazon_robot/scan")
-        self.camera = ListenerCamera("/amazon_robot/camera_front/image_raw")
         self.platform_listener = PlatformCommandListener()
         self.platform_pub = PublisherPlatform("/send_effort")
 
@@ -64,14 +61,6 @@ class HAL:
 
     def setW(self, velocity):
         self.motors.sendW(velocity)
-
-    def getImage(self):
-        try:
-            rclpy.spin_once(self.camera)
-            image = self.camera.getImage().data
-            return image
-        except Exception as e:
-            print(f"Exception in hal getImage {repr(e)}")
 
     def load(self):
         self.platform_pub.load()
