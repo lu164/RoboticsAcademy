@@ -27,8 +27,6 @@ class HAL:
         self.platform_listener = PlatformCommandListener()
         self.platform_pub = PublisherPlatform("/send_effort")
 
-        self.shared_pose = SharedPose3D("pose")
-
         # Spin nodes so that subscription callbacks load topic data
         # Bumper has to be spinned differently so that GetEntityState works
         executor = rclpy.executors.MultiThreadedExecutor()
@@ -48,9 +46,6 @@ class HAL:
         return new_instance
 
     def getPose3d(self):
-        print("GETTING POSE\n\n")
-        pose = self.pose3d.getPose3d()
-        self.shared_pose.add(pose)
         return self.pose3d.getPose3d()
 
     def getLaserData(self):

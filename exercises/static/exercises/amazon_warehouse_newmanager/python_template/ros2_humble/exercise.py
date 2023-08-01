@@ -13,11 +13,9 @@ import json
 import importlib
 import os
 
+from gui import GUI, ThreadGUI
 from hal import HAL
 from console import start_console, close_console
-
-from shared.value import SharedValue
-from user_functions import GUIFunctions
 
 class Template:
     # Initialize class variables
@@ -38,17 +36,14 @@ class Template:
         self.real_time_factor = 0
         self.frequency_message = {'brain': '', 'gui': '', 'rtf': ''}
 
-        # GUI variables
-        self.gui_time_cycle = SharedValue('gui_time_cycle')
-        self.gui_ideal_cycle = SharedValue('gui_ideal_cycle')
-
         # EXERCISE websocket
         self.server = None
         self.client = None
         self.host = sys.argv[1]
 
-        self.hal = None # dont start HAL until exercise is connected
-        self.gui = GUIFunctions()
+        # Initialize the GUI, HAL and Console behind the scenes
+        self.hal = HAL()
+        self.gui = GUI(self.host, self.hal)
         
     ################ --- BRAIN --- ################
 
