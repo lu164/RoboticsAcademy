@@ -357,11 +357,9 @@ class Template:
     # Function that gets called when the server is connected
     def connected(self, client, server):
         self.client = client
-
-        # Start the HAL update thread
-        message ="#strt" +json.dumps("Starting HAL thread")
-        self.server.send_message(self.client, message)
-        self.hal = HAL()
+        # Start the GUI update thread
+        self.thread_gui = ThreadGUI(self.gui)
+        self.thread_gui.start()
 
         # Start the real time factor tracker thread
         self.stats_thread = threading.Thread(target=self.track_stats)
@@ -370,9 +368,6 @@ class Template:
         # Start measure frequency
         self.measure_thread = threading.Thread(target=self.measure_frequency)
         self.measure_thread.start()
-
-        # Initialize the ping message
-        self.send_frequency_message()
 
         print(client, 'connected')
 

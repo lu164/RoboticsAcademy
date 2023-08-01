@@ -1,16 +1,10 @@
 import json
 import os
 import re
-import rclpy
-import sys
 import threading
 import time
 from datetime import datetime
 from websocket_server import WebsocketServer
-import multiprocessing
-
-from shared.value import SharedValue
-from shared.pose3d import SharedPose3D
 
 from map import Map
 

@@ -2,17 +2,13 @@ import rclpy
 import sys
 import cv2
 import threading
-import time
-from datetime import datetime
 
 from interfaces.motors import PublisherMotors
 from interfaces.pose3d import ListenerPose3d
 from interfaces.laser import ListenerLaser
-from interfaces.camera import ListenerCamera
 from interfaces.platform_controller import PlatformCommandListener
 from interfaces.platform_publisher import PublisherPlatform
 
-from shared.pose3d import SharedPose3D
 
 # Hardware Abstraction Layer
 class HAL:
