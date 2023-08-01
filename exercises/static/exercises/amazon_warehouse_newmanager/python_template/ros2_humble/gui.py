@@ -67,11 +67,8 @@ class GUI:
     # Update the gui
     def update_gui(self):
         # Payload Map Message
-        pose = self.shared_pose.get()
-        print("\n\nRobot Data ---------------------------------------------*")
-        print(" - Pose3d: " + str(pose))
-        pos_message = self.map.getRobotCoordinates(pose)
-        ang_message = self.map.getRobotAngle(pose)
+        pos_message = self.map.getRobotCoordinates()
+        ang_message = self.map.getRobotAngle()
         pos_message = str(pos_message + ang_message)
         self.payload["map"] = pos_message
 

@@ -310,7 +310,7 @@ class Template:
 
         # Set gui frequency
         frequency = float(frequency_message["gui"])
-        self.gui_time_cycle.add(1000.0 / frequency)
+        self.thread_gui.ideal_cycle = 1000.0 / frequency
 
         return
 
