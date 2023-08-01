@@ -250,7 +250,7 @@ class Template:
             brain_frequency = 0
 
         try:
-            gui_frequency = round(1000 / self.gui_ideal_cycle.get(), 1)
+            gui_frequency = round(1000 / self.thread_gui.measured_cycle, 1)
         except ZeroDivisionError:
             gui_frequency = 0
 
