@@ -15,7 +15,6 @@ function SpecificAmazonWarehouse(props) {
           return parseFloat(item);
         });
         draw(
-          guiCanvasRef.current,
           content[0],
           content[1],
           content[2],
