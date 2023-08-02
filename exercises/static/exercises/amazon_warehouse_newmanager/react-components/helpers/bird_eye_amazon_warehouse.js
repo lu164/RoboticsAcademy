@@ -7,12 +7,7 @@ let initialPosition;
 
 // Complete draw function
 
-export function draw(canvas, x, y, ax, ay) {
-  mapCanvas = canvas;
-  ctx = canvas.getContext("2d");
-  ctx.clearRect(0, 0, mapCanvas.width, mapCanvas.height);
-
-  drawTrail(coords[0], coords[1]);
+export function draw(x, y, ax, ay) {
   coords = drawTriangle(x, y, ax, ay);
 }
 
