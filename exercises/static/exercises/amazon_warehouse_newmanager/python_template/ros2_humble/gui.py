@@ -15,7 +15,7 @@ class GUI:
     def __init__(self, host, hal):
         t = threading.Thread(target=self.run_server)
         
-        self.payload = {'map': ''}
+        self.payload = {'map': '', 'array': ''}
 
         # GUI websocket
         self.server = None
@@ -66,6 +66,9 @@ class GUI:
 
     # Update the gui
     def update_gui(self):
+        # Payload path array
+        self.payload["array"] = self.array
+
         # Payload Map Message
         pos_message = self.map.getRobotCoordinates()
         ang_message = self.map.getRobotAngle()
@@ -110,9 +113,11 @@ class GUI:
 #------------------------------------------------------------#    
     # Process the array(ideal path) to be sent to websocket
     def showPath(self, array):
+        print("Path array: " + str(array))
         self.array_lock.acquire()
 
         strArray = ''.join(str(e) for e in array)
+        print("strArray: " + str(strArray))
 
         # Remove unnecesary spaces in the array to avoid JSON syntax error in javascript
         strArray = re.sub(r"\[[ ]+", "[", strArray)
@@ -121,6 +126,7 @@ class GUI:
         strArray = re.sub(r",,", ",", strArray)
         strArray = re.sub(r"]\[", "],[", strArray)
         strArray = "[" + strArray + "]"
+        print("strArray2: " + str(strArray))
 
         self.array = strArray
         self.array_lock.release()

@@ -12,9 +12,6 @@ function SpecificAmazonWarehouse(props) {
       if (data.map) {
         const pose = data.map.substring(1, data.map.length - 1);
         const content = pose.split(",").map(function (item) {
-          console.log("--------------Display Robot Function: ");
-          console.log(pose);
-          console.log(content);
           return parseFloat(item);
         });
         draw(
