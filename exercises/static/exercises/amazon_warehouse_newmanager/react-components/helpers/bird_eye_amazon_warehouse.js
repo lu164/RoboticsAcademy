@@ -19,7 +19,6 @@ export function draw(canvas, x, y, ax, ay) {
 export function generatePath(data, canvas){
 	mapCanvas = canvas
   ctx = mapCanvas.getContext("2d");
-  ctx.clearRect(0, 0, mapCanvas.width, mapCanvas.height);
 	if (data == null){
 	   	return null
 	}
@@ -27,10 +26,7 @@ export function generatePath(data, canvas){
 	let minx,miny,maxx,maxy;
 	miny = minx = Infinity
 	maxx = maxy = -Infinity;
-  console.log("-------------- Generate Path: ");
 	data.forEach(point => {
-      console.log(point[0]);
-      console.log(point[1]);
 		  minx = Math.min(minx,point[0]);
 		  miny = Math.min(miny,point[1]);
 		  maxx = Math.max(maxx,point[0]);
