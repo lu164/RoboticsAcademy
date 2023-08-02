@@ -7,17 +7,23 @@ let initialPosition;
 
 // Complete draw function
 
-export function draw(x, y, ax, ay) {
+export function draw(canvas, x, y, ax, ay) {
+  mapCanvas = canvas;
+  ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, mapCanvas.width, mapCanvas.height);
+
+  drawTrail(coords[0], coords[1]);
   coords = drawTriangle(x, y, ax, ay);
 }
 
 export function generatePath(data, canvas){
 	mapCanvas = canvas
-  let ctx = mapCanvas.getContext("2d");
+  ctx = mapCanvas.getContext("2d");
   ctx.clearRect(0, 0, mapCanvas.width, mapCanvas.height);
 	if (data == null){
 	   	return null
 	}
+
 	let minx,miny,maxx,maxy;
 	miny = minx = Infinity
 	maxx = maxy = -Infinity;
