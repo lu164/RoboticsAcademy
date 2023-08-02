@@ -26,7 +26,7 @@ function SpecificAmazonWarehouse(props) {
 
     const displayPath = (data) => {
       if(data.array){
-        generatePath(JSON.parse(data.array))
+        generatePath(JSON.parse(data.array), guiCanvasRef.current)
       }
     };
 
