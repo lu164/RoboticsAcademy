@@ -48,6 +48,7 @@ export function generatePath(data, canvas){
     //y = ((y-miny) / range) * scale;
     ctx.lineTo(x,y);
     ctx.stroke();
+    ctx.closePath();
   }
 }
 

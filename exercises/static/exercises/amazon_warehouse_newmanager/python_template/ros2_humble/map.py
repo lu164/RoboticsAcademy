@@ -37,8 +37,8 @@ class Map:
 		scale_y = -19.64; offset_y = 78
 		y = scale_y * y + offset_y
 		
-		print(" - Coordinate: " + str(x) + ", " + str(y))
-		print(" -> pose: " + str(pose))
+		# print(" - Coordinate: " + str(x) + ", " + str(y))
+		# print(" -> pose: " + str(pose))
 		
 		return x, y
 
@@ -49,8 +49,8 @@ class Map:
 		ty = math.cos(-rt) - math.sin(-rt)
 		tx = math.sin(-rt) + math.cos(-rt)
 
-		print(" - Angle: " + str(tx) + ", " + str(ty))
-		print(" -> rt: " + str(rt))
+		# print(" - Angle: " + str(tx) + ", " + str(ty))
+		# print(" -> rt: " + str(rt))
 
 		return tx, ty
 
