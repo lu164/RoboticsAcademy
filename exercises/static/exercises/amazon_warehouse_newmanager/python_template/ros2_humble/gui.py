@@ -113,10 +113,14 @@ class GUI:
 #------------------------------------------------------------#    
     # Process the array(ideal path) to be sent to websocket
     def showPath(self, array):
-        print("Path array: " + str(array))
+        array_scaled = []
+        for wp in array:
+            array_scaled.append([wp[0] * 0.72, wp[1] * 0.545])
+
+        print("Path array: " + str(array_scaled))
         self.array_lock.acquire()
 
-        strArray = ''.join(str(e) for e in array)
+        strArray = ''.join(str(e) for e in array_scaled)
         print("strArray: " + str(strArray))
 
         # Remove unnecesary spaces in the array to avoid JSON syntax error in javascript

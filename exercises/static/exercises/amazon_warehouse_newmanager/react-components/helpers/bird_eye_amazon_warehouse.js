@@ -44,8 +44,8 @@ export function generatePath(data, canvas){
     ctx.strokeWidth = 100;
     let x = data[i+1][0];
     let y = data[i+1][1];
-    x = ((x-minx) / range) * scale;
-    y = ((y-miny) / range) * scale;
+    // x = ((x-minx) / range) * scale;
+    // y = ((y-miny) / range) * scale;
     ctx.lineTo(x,y);
     ctx.stroke();
     ctx.closePath();
