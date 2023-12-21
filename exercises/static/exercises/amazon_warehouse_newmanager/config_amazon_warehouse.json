@@ -84,7 +84,7 @@
   "application": {
     "type": "python",
     "entry_point": "$EXERCISE_FOLDER/entry_point/ros2_humble/exercise.py",
-    "params": { "circuit": "BWM robot Warehouse 1"}
+    "params": { "circuit": "World 4"}
   },
   "launch": {
     "0": {
@@ -99,8 +99,8 @@
       "plugin_folders": [
       ],
       "parameters": [],
-      "launch_file": "$EXERCISE_FOLDER/launch/ros2_humble/bmw_pallet_warehouse.launch.py",
-      "name": "World 2"
+      "launch_file": "$EXERCISE_FOLDER/launch/ros2_humble/no_roof_small_warehouse_with_bwm_robot_followingcam.launch.py",
+      "name": "BWM robot Warehouse 1"
     },
     "1": {
       "type": "module",
@@ -124,7 +124,7 @@
   "application": {
     "type": "python",
     "entry_point": "$EXERCISE_FOLDER/entry_point/ros2_humble/exercise.py",
-    "params": { "circuit": "BWM robot Warehouse 2"}
+    "params": { "circuit": "World 4"}
   },
   "launch": {
     "0": {
@@ -140,7 +140,7 @@
       ],
       "parameters": [],
       "launch_file": "$EXERCISE_FOLDER/launch/ros2_humble/bmw_pallet_warehouse.launch.py",
-      "name": "World 2"
+      "name": "BWM robot Warehouse 2"
     },
     "1": {
       "type": "module",
