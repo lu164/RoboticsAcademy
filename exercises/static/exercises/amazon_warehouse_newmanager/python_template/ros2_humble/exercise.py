@@ -116,10 +116,9 @@ class Template:
 
         # Add HAL functions
         hal_module.HAL.getPose3d = self.hal.getPose3d
+        hal_module.HAL.getSimTime = self.hal.getSimTime
         hal_module.HAL.setV = self.hal.setV
         hal_module.HAL.setW = self.hal.setW
-        hal_module.HAL.laser = self.hal.laser
-        hal_module.HAL.getLaserData = self.hal.getLaserData
         hal_module.HAL.lift = self.hal.lift
         hal_module.HAL.putdown = self.hal.putdown
 
