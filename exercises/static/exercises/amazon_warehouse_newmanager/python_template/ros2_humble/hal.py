@@ -7,7 +7,7 @@ from interfaces.motors import PublisherMotors
 from interfaces.pose3d import ListenerPose3d
 from interfaces.platform_controller import PlatformCommandListener
 from interfaces.platform_publisher import PublisherPlatform
-from interfaces.sim_time import ListenerSimTime
+from interfaces.simtime import ListenerSimTime
 
 # Hardware Abstraction Layer
 class HAL:
