@@ -3,6 +3,7 @@ from rclpy.node import Node
 from rosgraph_msgs.msg import Clock
 import threading
 from math import pi as PI
+from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy
 
 class SimTime():
     def __init__(self):
@@ -26,7 +27,8 @@ class ListenerSimTime(Node):
         @type topic: 
         '''
 
-        super().__init__("ListenerSimTime")
+        super().__init__("simtime_subscriber_node")
+
         self.topic = topic
         self.data = SimTime()
         self.sub = None
@@ -52,7 +54,18 @@ class ListenerSimTime(Node):
         '''
         Starts (subscribes) the client
         '''
-        self.sub = self.create_subscription(Clock, self.topic, self.__callback, 10)
+
+        qos_profile = QoSProfile(
+            reliability=QoSReliabilityPolicy.RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT,
+            history=QoSHistoryPolicy.RMW_QOS_POLICY_HISTORY_KEEP_LAST,
+            depth=1
+        )
+
+        self.sub = self.create_subscription(
+            Clock, 
+            self.topic, 
+            self.__callback, 
+            qos_profile=qos_profile)
 
     def stop(self):
         '''
