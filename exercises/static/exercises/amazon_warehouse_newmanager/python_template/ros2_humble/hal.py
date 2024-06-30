@@ -5,10 +5,9 @@ import threading
 
 from interfaces.motors import PublisherMotors
 from interfaces.pose3d import ListenerPose3d
-from interfaces.laser import ListenerLaser
 from interfaces.platform_controller import PlatformCommandListener
 from interfaces.platform_publisher import PublisherPlatform
-
+from interfaces.simtime import ListenerSimTime
 
 # Hardware Abstraction Layer
 class HAL:
@@ -19,15 +18,15 @@ class HAL:
 
         self.motors = PublisherMotors("/amazon_robot/cmd_vel", 4, 0.3)
         self.pose3d = ListenerPose3d("/amazon_robot/odom")
-        self.laser = ListenerLaser("/amazon_robot/scan")
         self.platform_listener = PlatformCommandListener()
         self.platform_pub = PublisherPlatform("/send_effort")
+        self.simtime = ListenerSimTime("/clock")
 
         # Spin nodes so that subscription callbacks lift topic data
         # Bumper has to be spinned differently so that GetEntityState works
         executor = rclpy.executors.MultiThreadedExecutor()
         executor.add_node(self.pose3d)
-        executor.add_node(self.laser)
+        executor.add_node(self.simtime)
         executor.add_node(self.platform_listener)
         executor_thread = threading.Thread(target=executor.spin, daemon=True)
         executor_thread.start()
@@ -44,8 +43,8 @@ class HAL:
     def getPose3d(self):
         return self.pose3d.getPose3d()
 
-    def getLaserData(self):
-        return self.laser.getLaserData()
+    def getSimTime(self):
+        return self.simtime.getSimTime()
 
     def setV(self, velocity):
         self.motors.sendV(velocity)
